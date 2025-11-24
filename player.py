@@ -13,14 +13,17 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
 
+        # Get the next room from the exits dictionary of the current room.
+        next_room = self.current_room.exits[direction]
+
+        
         # 2. GESTION PASSAGE INTERDIT
         # Si next_room est une chaîne de caractères, c'est un message de blocage
         if isinstance(next_room, str):
             print(f"\n{next_room}\n")
             return False
             
-        # Get the next room from the exits dictionary of the current room.
-        next_room = self.current_room.exits[direction]
+
 
         # If the next room is None, print an error message and return False.
         if next_room is None:
@@ -33,3 +36,4 @@ class Player():
         return True
 
     
+
