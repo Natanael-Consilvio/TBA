@@ -1,19 +1,35 @@
-# player.py
+# Define the Player class.
+class Player():
 
-class Player:
-    def __init__(self, player_id, initial_room_id):
-        # nous utilisons les IDs de config.py
-        self.id = player_id
-        self.current_room_id = initial_room_id
-        
-        # Votre inventaire initial (pour tester le passage interdit : CONSIGNE)
-        self.inventory = ["couteau_suisse"] 
+    # Define the constructor.
+    def __init__(self, name):
+        self.name = name
+        self.current_room = None
+    
+    # Define the move method.
+    def move(self, direction):
+        # Vérification de sécurité si la direction n'existe pas dans le dictionnaire
+        if direction not in self.current_room.exits:
+            print("\nAucune porte dans cette direction !\n")
+            return False
 
-    def check_inventory(self):
-        """Affiche le contenu de l'inventaire."""
-        if not self.inventory:
-            return "Votre inventaire est vide."
+        # 2. GESTION PASSAGE INTERDIT
+        # Si next_room est une chaîne de caractères, c'est un message de blocage
+        if isinstance(next_room, str):
+            print(f"\n{next_room}\n")
+            return False
+            
+        # Get the next room from the exits dictionary of the current room.
+        next_room = self.current_room.exits[direction]
+
+        # If the next room is None, print an error message and return False.
+        if next_room is None:
+            print("\nAucune porte dans cette direction !\n")
+            return False
         
-        output = "\n--- Inventaire du joueur ---\n"
-        output += ", ".join(self.inventory)
-        return output
+        # Set the current room to the next room.
+        self.current_room = next_room
+        print(self.current_room.get_long_description())
+        return True
+
+    
