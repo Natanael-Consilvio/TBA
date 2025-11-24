@@ -58,15 +58,30 @@ monde = {
     }
 }
 
+
 CHARACTERS = {
     "mark": {
-        "name": "Mark Evans"
-
-
-
-
-
-
+        "name": "Mark Evans",
+        "role": "Gardien",
+        "stats": {"tir": 40, "defense": 90, "endurance": 80, "tp_max": 100},
+        "techniques": ["Main Magique (TP: 30)"],
+        "is_recruitable": False  # Le joueur principal
+    },
+    "axel": {
+        "name": "Axel Blaze",
+        "role": "Attaquant",
+        "stats": {"tir": 95, "defense": 30, "endurance": 70, "tp_max": 80},
+        "techniques": ["Tir tout-puissant (TP: 40)"],
+        "is_recruitable": True
+    },
+    "joueur_aleatoire_a": {
+        "name": "Joueur Lambda A",
+        "role": "Milieu",
+        "stats": {"tir": 50, "defense": 50, "endurance": 60, "tp_max": 50},
+        "techniques": [],
+        "is_recruitable": True
+    }
+}
 
 # Variable pour savoir où est le joueur actuellement
 position_actuelle = "entree"
