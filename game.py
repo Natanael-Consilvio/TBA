@@ -46,11 +46,21 @@ class Game:
         # Create exits for rooms
 
         forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
+
+        #là c'est le SENS UNIQUE Tower vers Cottage
         tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
+        
         cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
+
+        #on remplace tower par none au Sud comme ça c'est Sens UNIQUE
+        cottage.exits = {"N" : None, "E" : None, "S" : None, "O" : cave}
+        
         swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+
+        #Passage interdit Castle vers Est
+        msg_interdiction = "Passage interdit"
+        castle.exits = {"N" : forest, "E" : msg_interdiction, "S" : None, "O" : None}
+        #à Est on change par le message interdiction
 
         # Setup player and starting room
 
@@ -69,10 +79,7 @@ class Game:
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
-        # 1. GESTION COMMANDE VIDE
-        # Si la commande est vide ou ne contient que des espaces, on ne fait rien
-        if not command_string.strip():
-            return
+
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
 
