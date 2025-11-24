@@ -79,7 +79,11 @@ class Game:
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
-
+        
+        # 1. GESTION COMMANDE VIDE
+        # Si la commande est vide ou ne contient que des espaces, on ne fait rien
+        if not command_string.strip():
+            return
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
 
@@ -108,3 +112,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
