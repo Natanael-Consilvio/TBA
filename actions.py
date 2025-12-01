@@ -19,43 +19,34 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 class Actions:
 
     def go(game, list_of_words, number_of_parameters):
-        """
-        Move the player in the direction specified by the parameter.
-        The parameter must be a cardinal direction (N, E, S, O).
-
-        Args:
-            game (Game): The game object.
-            list_of_words (list): The list of words in the command.
-            number_of_parameters (int): The number of parameters expected by the command.
-
-        Returns:
-            bool: True if the command was executed successfully, False otherwise.
-
-        Examples:
-        
-        >>> from game import Game
-        >>> game = Game()
-        >>> game.setup()
-        >>> go(game, ["go", "N"], 1)
-        True
-        >>> go(game, ["go", "N", "E"], 1)
-        False
-        >>> go(game, ["go"], 1)
-        False
-
-        """
-        
         player = game.player
         l = len(list_of_words)
-        # If the number of parameters is incorrect, print an error message and return False.
+        
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
             return False
 
-        # Get the direction from the list of words.
         direction = list_of_words[1]
-        # Move the player in the direction specified by the parameter.
+
+
+        #utiliser un dico 
+        direction = direction.upper() # Met en majuscule
+        if direction == "OUEST": direction = "O"
+        if direction == "EST":   direction = "E"
+        if direction == "NORD":  direction = "N"
+        if direction == "SUD":   direction = "S"
+        if direction == "UP":    direction = "U" 
+        if direction == "DOWN":  direction = "D"
+
+        #Gestion direction inconnue :
+        # Maintenant que "OUEST" est devenu "O", il passera ce test :
+        if direction not in game.directions:
+            print(f"\nDirection '{direction}' inconnue. Utilisez : {game.directions}\n")
+            return False
+
+
+
         player.move(direction)
         return True
 
