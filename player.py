@@ -8,6 +8,13 @@ class Player():
     
     # Define the move method.
     def move(self, direction):
+        
+        # MODIFICATION : Gestion direction inconnue (Exercice "Votre propre univers")
+        # Vérifie si la direction existe dans les clés (N, E, S, O) avant d'essayer d'y accéder
+        if direction not in self.current_room.exits:
+            print(f"\nDirection '{direction}' inconnue ! Utilisez N, E, S ou O.\n")
+            return False
+
         # Get the next room from the exits dictionary of the current room.
         next_room = self.current_room.exits[direction]
 
@@ -20,5 +27,3 @@ class Player():
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
-
-    
