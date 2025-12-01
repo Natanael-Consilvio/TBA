@@ -17,7 +17,7 @@ class Game:
         self.player = None
     
     # Setup the game
-    def setup(self):
+    def setup(self): 
 
         # Setup commands
 
@@ -30,32 +30,56 @@ class Game:
         
         # Setup rooms
 
-        forest = Room("Forest", "dans une forêt enchantée. Vous entendez une brise légère à travers la cime des arbres.")
-        self.rooms.append(forest)
-        tower = Room("Tower", "dans une immense tour en pierre qui s'élève au dessus des nuages.")
-        self.rooms.append(tower)
-        cave = Room("Cave", "dans une grotte profonde et sombre. Des voix semblent provenir des profondeurs.")
-        self.rooms.append(cave)
-        cottage = Room("Cottage", "dans un petit chalet pittoresque avec un toit de chaume. Une épaisse fumée verte sort de la cheminée.")
-        self.rooms.append(cottage)
-        swamp = Room("Swamp", "dans un marécage sombre et ténébreux. L'eau bouillonne, les abords sont vaseux.")
-        self.rooms.append(swamp)
-        castle = Room("Castle", "dans un énorme château fort avec des douves et un pont levis. Sur les tours, des flèches en or massif.")
-        self.rooms.append(castle)
+        Club_de_Raimon = Room("Club de Raimon", "C'est l'iconique club de foot du collège Raimon.")
+        self.rooms.append(Club de Raimon)
+        Terrain = Room("Terrain", "Le terrain de foot du collège Raimon.")
+        self.rooms.append(Terrain)
+        Vestiaire = Room("Vestiaire", "Vestiaire du club. Vous pouvez discuter avec les joueurs du club présent.")
+        self.rooms.append(Vestiaire)
+        Salle_secrète = Room("Salle secrète", "Lieu résidant un mystérieux bouquin.")
+        self.rooms.append(Salle secrète)
+        Le_magasin_de_sports = Room("Le magasin de sports", "Lieu pour acheter des équipements afin d'améliorer vos personnages.")
+        self.rooms.append(Le magasin de sports)
+        La_zone_de_recrutement = Room("La zone de recrutement", "Lieu pour recruter des joueurs afin d'améliorer son équipe.")
+        self.rooms.append(La zone de recrutement)
+
+        Le_club_Kirkwood = Room("Le club Kirkwood", "Le club du collège Kirkwood, adversaire de Raimon.")
+        self.rooms.append(Le club Kirkwood)
+
+        Forêt = Room("Forêt", "Forêt liant le club Raimon et Kirkwood.")
+        self.rooms.append(Forêt)
 
         # Create exits for rooms
 
-        forest.exits = {"N" : cave, "E" : tower, "S" : castle, "O" : None}
-        tower.exits = {"N" : cottage, "E" : None, "S" : swamp, "O" : forest}
-        cave.exits = {"N" : None, "E" : cottage, "S" : forest, "O" : None}
-        cottage.exits = {"N" : None, "E" : None, "S" : tower, "O" : cave}
-        swamp.exits = {"N" : tower, "E" : None, "S" : None, "O" : castle}
-        castle.exits = {"N" : forest, "E" : swamp, "S" : None, "O" : None}
+        # MODIFICATION : Sens unique (Exercice "Première version")
+        # On peut aller de Forest vers Cave (N), mais on ne pourra pas revenir (voir cave.exits)
+        Club_de_Raimon.exits = {"N" : Terrain, "E" : Le_magasin_de_sports, "S" : None, "O" : Forêt}
+        
+        Terrain.exits = {"N" : La_zone_de_recrutement, "E" : Vestiaire, "S" : Club_de_Raimon, "O" : Le_club_Kirkwood}
+        
+        # Cave : La sortie SUD vers Forest est None (Sens unique, impossible de revenir)
+        Vestiaire.exits = {"N" : Salle_secrete, "E" : None, "S" : None, "O" : Terrain}
+        
+        # MODIFICATION : Connexion vers le nouveau lieu "Attic" (Grenier) au Nord
+        Salle_secrète.exits = {"N" : None, "E" : None, "S" : None, "O" : None}
+        
+        # Sorties du Grenier (on ne peut que redescendre au Sud)
+        Le_magasin_de_sports.exits = {"N" : None, "E" : None, "S" : None, "O" : Club_de_Raimon}
+
+        La_zone_de_recrutement.exits = {"N" : None, "E" : None, "S" : Terrain, "O" : None}
+        
+        # MODIFICATION : Passage interdit et connexion Dungeon
+        # Passage interdit : "E" vers swamp est mis à None (on ne peut pas aller au marais depuis le château)
+        # Connexion Dungeon : "O" mène au donjon
+        Le_club_Kirkwood.exits = {"N" : None, "E" : Terrain, "S" : Forêt, "O" : None}
+
+        # Sorties du Donjon (on revient au chateau par l'Est)
+        Forêt.exits = {"N" : Le_club_Kirkwood, "E" : Club_de_Raimon, "S" : None, "O" : None}
 
         # Setup player and starting room
 
         self.player = Player(input("\nEntrez votre nom: "))
-        self.player.current_room = swamp
+        self.player.current_room = Club_de_Raimon
 
     # Play the game
     def play(self):
@@ -69,6 +93,10 @@ class Game:
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
+
+        # MODIFICATION : Gestion commande vide (Exercice "Première version")
+        if not command_string.strip():
+            return
 
         # Split the command string into a list of words
         list_of_words = command_string.split(" ")
@@ -98,3 +126,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
