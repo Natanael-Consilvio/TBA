@@ -14,7 +14,8 @@ class Player():
         if next_room is None:
             print("\nAucune porte dans cette direction !\n")
             return False
-        
+
+        self.history.apppend(self.current_room)
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
