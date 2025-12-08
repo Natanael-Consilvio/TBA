@@ -84,7 +84,21 @@ class Actions:
         # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
     
         return True
+    def history(game, list_of_words, number_of_paarameters):
+        """
+        Print the list of visited rooms.
+        """
+        l=len(list_of_words)
 
+    if l!= number_of_parameters+1:
+        command_word=list_of_words[0]
+        print(MSG0.format(command_word=command_word))
+        return False
+
+    player=game.player
+    print(player.get_history_string())
+    return True
+    
     def quit(game, list_of_words, number_of_parameters):
         """
         Quit the game.
