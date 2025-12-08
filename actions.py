@@ -76,6 +76,10 @@ class Actions:
 
         success=player.go_back()
 
+        if not success:
+            print("\nImpossible de revenir en arrière, vous êtes au point de départ (ou l'historique est vide).\n")
+            return False
+
         # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
         player.move(direction)
         return True
