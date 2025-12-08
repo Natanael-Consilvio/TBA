@@ -18,10 +18,23 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 class Actions:
 
+    # MODIFICATION : Définition du dictionnaire de traduction pour les synonymes
+    # Les clés sont les synonymes longs, les valeurs sont les codes courts (N, E, S, O, U, D).
+    TRADUCTION_DIRECTION = {
+        "OUEST": "O",
+        "EST": "E",
+        "NORD": "N",
+        "SUD": "S",
+        "UP": "U",
+        "DOWN": "D"
+    }
+
     def go(game, list_of_words, number_of_parameters):
+        
         player = game.player
         l = len(list_of_words)
         
+        # 1. Vérification du nombre de paramètres
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
@@ -30,23 +43,22 @@ class Actions:
         direction = list_of_words[1]
 
 
-        #utiliser un dico 
-        direction = direction.upper() # Met en majuscule
-        if direction == "OUEST": direction = "O"
-        if direction == "EST":   direction = "E"
-        if direction == "NORD":  direction = "N"
-        if direction == "SUD":   direction = "S"
-        if direction == "UP":    direction = "U" 
-        if direction == "DOWN":  direction = "D"
+        # MODIFICATION : Utilisation du dictionnaire pour la traduction (synonymes)
+        
+        # 2. Mise en majuscule : "ouest" -> "OUEST"
+        direction = direction.upper() 
 
-        #Gestion direction inconnue :
-        # Maintenant que "OUEST" est devenu "O", il passera ce test :
+        # 3. Traduction : Si la clé est trouvée dans le dictionnaire, elle est remplacée par le code court.
+        #    Sinon, on conserve la valeur de 'direction' (le deuxième argument de .get).
+        direction = Actions.TRADUCTION_DIRECTION.get(direction, direction)
+        
+        
+        # 4. Gestion direction inconnue : Vérifie si la direction traduite est autorisée dans le jeu
         if direction not in game.directions:
             print(f"\nDirection '{direction}' inconnue. Utilisez : {game.directions}\n")
             return False
 
-
-
+        # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
         player.move(direction)
         return True
 
