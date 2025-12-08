@@ -58,6 +58,24 @@ class Actions:
             print(f"\nDirection '{direction}' inconnue. Utilisez : {game.directions}\n")
             return False
 
+        success = player.move(direction)
+
+        if success:
+            print(player.get_history_string())
+        return success
+
+    def back(game, list_of_words, number_of_parameters):
+
+        l=len(list_of_words)
+        if l!=number_of_parameters +1:
+            command_word=list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        player=game.player
+
+        success=player.go_back()
+
         # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
         player.move(direction)
         return True
