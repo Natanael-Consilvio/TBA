@@ -15,7 +15,7 @@ class Player():
             print("\nAucune porte dans cette direction !\n")
             return False
 
-        self.history.apppend(self.current_room)
+        self.history.append(self.current_room)
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
@@ -30,9 +30,9 @@ class Player():
         print(self.current_room.get_long_description())
         return True
 
-    def get_history_strung(self):
+    def get_history_string(self):
         if not self.history:
-            return "\nVous n'avez pas encore visitié d'autres pièces."
+            return "\nVous n'avez pas encore visité d'autres pièces."
         output= "\nVous avez déjà visité les pièces suivantes:"
 
         for room in self.history:
