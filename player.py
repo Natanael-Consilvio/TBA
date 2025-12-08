@@ -2,6 +2,7 @@ class Player():
     def __init__(self, name):
         self.name = name
         self.current_room = None
+        self.history=[]
     
     def move(self, direction):
         if direction not in self.current_room.exits:
