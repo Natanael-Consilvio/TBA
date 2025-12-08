@@ -31,7 +31,8 @@ class Game:
         self.commands["go"] = go
         
         # Setup rooms
-
+        history = Command("history", " : afficher l'historique des pièces visitées", Actions.history, 0)
+        self.commands["history"] = history
 
         # 11 lieux dont ceux de U et D
         
