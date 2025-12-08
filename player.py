@@ -19,3 +19,13 @@ class Player():
         self.current_room = next_room
         print(self.current_room.get_long_description())
         return True
+
+    def go_back(self):
+        if len(self.history)<1:
+            return False
+        previous_room=self.history.pop()
+
+        self.current_room=previous_room
+
+        print(self.current_room.get_long_description())
+        return True
