@@ -29,3 +29,12 @@ class Player():
 
         print(self.current_room.get_long_description())
         return True
+
+    def get_history_strung(self):
+        if not self.history:
+            return "\nVous n'avez pas encore visitié d'autres pièces."
+        output= "\nVous avez déjà visité les pièces suivantes:"
+
+        for room in self.history:
+            output += f"\n\t-{room.description}"
+        return output
