@@ -80,8 +80,9 @@ class Actions:
             print("\nImpossible de revenir en arrière, vous êtes au point de départ (ou l'historique est vide).\n")
             return False
 
+        print (player.get_hsitory_string())
         # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
-        player.move(direction)
+    
         return True
 
     def quit(game, list_of_words, number_of_parameters):
