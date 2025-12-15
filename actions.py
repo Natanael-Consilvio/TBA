@@ -177,3 +177,52 @@ class Actions:
             print("\t- " + str(command))
         print()
         return True
+
+
+    def look(game, list_of_words, number_of_parameters):
+        """ Affiche la description de la pièce et son inventaire """
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+        
+        player = game.player
+        print(player.current_room.get_long_description())
+        print(player.current_room.get_inventory_string())
+        return True
+
+    def take(game, list_of_words, number_of_parameters):
+        """ Prend un objet dans la pièce """
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        item_name = list_of_words[1] # ex: "sword"
+        game.player.take(item_name)
+        return True
+
+    def drop(game, list_of_words, number_of_parameters):
+        """ Pose un objet au sol """
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        item_name = list_of_words[1]
+        game.player.drop(item_name)
+        return True
+
+    def check(game, list_of_words, number_of_parameters):
+        """ Affiche l'inventaire du joueur """
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        print(game.player.get_inventory_string())
+        return True
