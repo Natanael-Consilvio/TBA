@@ -16,3 +16,8 @@ class Beamer(Item):
         super().__init__(name, description, weight)
         self.target_room = None # La pièce mémorisée (aucune au départ)
 
+    def charge(self, current_room):
+        """Mémorise la pièce actuelle."""
+        self.target_room = current_room
+        return True
+
