@@ -53,6 +53,9 @@ class Game:
 
         charge = Command("charge", " : charger le beamer dans la pièce actuelle", Actions.charge, 0)
         self.commands["charge"] = charge
+
+        use = Command("use", " : utiliser le beamer pour se téléporter", Actions.use, 0)
+        self.commands["use"] = use
    
         # 11 lieux dont ceux de U et D
         
