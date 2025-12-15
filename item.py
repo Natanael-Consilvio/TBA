@@ -30,7 +30,7 @@ class Beamer(Item):
         # Téléportation
         player.history.append(player.current_room) # On garde l'historique
         player.current_room = self.target_room
-        print("\n*WOOSH* Vous êtes téléporté par le beamer !\n")
+        print("\n*paf* Vous êtes téléporté par le beamer !\n")
         print(player.current_room.get_long_description())
         print(player.current_room.get_inventory_string())
         return True
