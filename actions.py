@@ -226,3 +226,46 @@ class Actions:
 
         print(game.player.get_inventory_string()) #ici
         return True
+    
+    def charge(game, list_of_words, number_of_parameters):
+        """Charge le beamer avec la pièce actuelle."""
+        player = game.player
+        # Vérification paramètres
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # Vérifier si le joueur a le beamer sur lui
+        if "beamer" not in player.inventory:
+            print("\nVous n'avez pas de beamer à charger.\n")
+            return False
+
+        # Récupérer l'objet beamer depuis l'inventaire
+        beamer = player.inventory["beamer"]
+       
+        # Action de charger
+        beamer.charge(player.current_room)
+        print(f"\nLe beamer a mémorisé : {player.current_room.name}.\n")
+        return True
+
+    def use(game, list_of_words, number_of_parameters):
+        """Utilise le beamer."""
+        player = game.player
+        # Vérification paramètres
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+
+        # Vérifier si le joueur a le beamer
+        if "beamer" not in player.inventory:
+            print("\nVous n'avez pas de beamer à utiliser.\n")
+            return False
+
+        beamer = player.inventory["beamer"]
+       
+        # Action d'utiliser
+        return beamer.use(player)
