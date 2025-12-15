@@ -35,6 +35,6 @@ class Player():
             return "\nVous n'avez pas encore visité d'autres pièces."
         output= "\nVous avez déjà visité les pièces suivantes:"
 
-        for room in self.history:
+        for room in reserved(self.history):
             output += f"\n\t-{room.description}"
         return output
