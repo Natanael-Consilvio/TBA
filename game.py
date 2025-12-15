@@ -115,6 +115,8 @@ class Game:
         Vestiaire.inventory["crampons"] = crampons
         Salle_secrete.inventory["manuel"] = manuel
 
+        beamer = Beamer("beamer", "un dispositif de téléportation étrange", 5) # 5kg
+        Tribunes.inventory["beamer"] = beamer
 
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = Club_de_Raimon
