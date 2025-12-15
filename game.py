@@ -36,6 +36,20 @@ class Game:
         
         back = Command("back", " : revenir à la pièce précédente", Actions.back, 0)
         self.commands["back"] = back
+
+
+        look = Command("look", " : regarder autour de soi", Actions.look, 0)
+        self.commands["look"] = look
+        
+        take = Command("take", " <item> : prendre un objet", Actions.take, 1)
+        self.commands["take"] = take
+        
+        drop = Command("drop", " <item> : poser un objet", Actions.drop, 1)
+        self.commands["drop"] = drop
+        
+        check = Command("check", " : voir son inventaire", Actions.check, 0)
+        self.commands["check"] = check
+   
         # 11 lieux dont ceux de U et D
         
         Club_de_Raimon = Room("Club de Raimon", "à l'iconique club de foot du collège Raimon.")
