@@ -20,7 +20,7 @@ class Player():
         self.history.append(self.current_room)
         self.current_room = next_room
         print(self.current_room.get_long_description())
-        print(self.current_room.get_inventory_string())
+        print(self.current_room.get_inventory_string()) #inventaire exercice
         return True
 
     def go_back(self):
@@ -32,7 +32,7 @@ class Player():
 
         print(self.current_room.get_long_description())
 
-        print(self.current_room.get_inventory_string())
+        print(self.current_room.get_inventory_string()) #inventaire exercice aussi
 
         return True
 
@@ -73,7 +73,7 @@ class Player():
         
         item = self.inventory[item_name]
         
-        # Transférer l'objet
+        # Transférer l'objet 
         del self.inventory[item_name]
         self.current_room.inventory[item_name] = item
         print(f"\nVous avez déposé : {item_name}.\n")

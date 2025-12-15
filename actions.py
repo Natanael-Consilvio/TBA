@@ -189,7 +189,7 @@ class Actions:
         
         player = game.player
         print(player.current_room.get_long_description())
-        print(player.current_room.get_inventory_string())
+        print(player.current_room.get_inventory_string()) #pour voir les items dans la room actuelle 
         return True
 
     def take(game, list_of_words, number_of_parameters):
@@ -200,7 +200,7 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
-        item_name = list_of_words[1] # ex: "sword"
+        item_name = list_of_words[1] # c'est le deuxieme mot (take objet) c'est objet
         game.player.take(item_name)
         return True
 
@@ -224,5 +224,5 @@ class Actions:
             print(MSG0.format(command_word=command_word))
             return False
 
-        print(game.player.get_inventory_string())
+        print(game.player.get_inventory_string()) #ici
         return True
