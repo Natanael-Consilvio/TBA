@@ -21,3 +21,16 @@ class Beamer(Item):
         self.target_room = current_room
         return True
 
+    def use(self, player):
+        """Téléporte le joueur vers la pièce mémorisée."""
+        if self.target_room is None:
+            print("\nLe beamer n'est pas chargé.\n")
+            return False
+       
+        # Téléportation
+        player.history.append(player.current_room) # On garde l'historique
+        player.current_room = self.target_room
+        print("\n*WOOSH* Vous êtes téléporté par le beamer !\n")
+        print(player.current_room.get_long_description())
+        print(player.current_room.get_inventory_string())
+        return True
