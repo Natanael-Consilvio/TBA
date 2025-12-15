@@ -6,6 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
+from item import Item
 
 class Game:
 
@@ -97,6 +98,17 @@ class Game:
         Le_club_Kirkwood.exits = {"N" : None, "E" : Terrain, "S" : Foret, "O" : None}
 
         Foret.exits = {"N" : Le_club_Kirkwood, "E" : Club_de_Raimon, "S" : None, "O" : None}
+
+        #Création des objets
+        ballon = Item("ballon", "un ballon de football officiel", 1)
+        crampons = Item("crampons", "une paire de crampons usés", 2)
+        manuel = Item("manuel", "le manuel technique de l'équipe", 3)
+        
+        # Ajout des objets dans les pièces 
+        # Remplacez "Club_de_Raimon" par vos variables de salle exactes
+        Club_de_Raimon.inventory["ballon"] = ballon
+        Vestiaire.inventory["crampons"] = crampons
+        Salle_secrete.inventory["manuel"] = manuel
 
 
         self.player = Player(input("\nEntrez votre nom: "))
