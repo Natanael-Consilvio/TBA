@@ -50,6 +50,9 @@ class Game:
         
         check = Command("check", " : voir son inventaire", Actions.check, 0)
         self.commands["check"] = check
+
+        charge = Command("charge", " : charger le beamer dans la pièce actuelle", Actions.charge, 0)
+        self.commands["charge"] = charge
    
         # 11 lieux dont ceux de U et D
         
