@@ -6,7 +6,7 @@ from room import Room
 from player import Player
 from command import Command
 from actions import Actions
-from item import Item
+from item import Item, Beamer
 
 class Game:
 
