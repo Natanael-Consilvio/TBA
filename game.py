@@ -105,7 +105,6 @@ class Game:
         manuel = Item("manuel", "le manuel technique de l'équipe", 3)
         
         # Ajout des objets dans les pièces 
-        # Remplacez "Club_de_Raimon" par vos variables de salle exactes
         Club_de_Raimon.inventory["ballon"] = ballon
         Vestiaire.inventory["crampons"] = crampons
         Salle_secrete.inventory["manuel"] = manuel
