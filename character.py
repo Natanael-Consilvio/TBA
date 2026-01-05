@@ -21,7 +21,7 @@ class Character:
         Retourne True si le personnage s'est déplacé, False sinon.
         """
         # Une chance sur deux de se déplacer
-        if random.choice([True, False]):
+        if random.choice([True, False, False, False, False]):
             exits = self.current_room.exits
             # Filtrer les sorties valides (celles qui ne sont pas None)
             valid_exits = [room for room in exits.values() if room is not None]
