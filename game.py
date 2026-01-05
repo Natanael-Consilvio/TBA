@@ -7,6 +7,10 @@ from player import Player
 from command import Command
 from actions import Actions
 from item import Item, Beamer
+from character import Character
+
+DEBUG = True
+
 
 class Game:
 
@@ -18,7 +22,8 @@ class Game:
         self.player = None
 
         self.directions = ["N", "E", "S", "O", "U", "D"] #rajout des directions dans la classe
-    
+        self.characters = []
+
     # Setup the game
     def setup(self): 
 
@@ -57,6 +62,9 @@ class Game:
         use = Command("use", " : utiliser le beamer pour se téléporter", Actions.use, 0)
         self.commands["use"] = use
    
+        talk = Command("talk", " <nom> : parler à un personnage", Actions.talk, 1)
+        self.commands["talk"] = talk
+
         # 11 lieux dont ceux de U et D
         
         Club_de_Raimon = Room("Club de Raimon", "à l'iconique club de foot du collège Raimon.")
@@ -118,6 +126,20 @@ class Game:
         beamer = Beamer("beamer", "un dispositif de téléportation étrange", 5) # 5kg
         Tribunes.inventory["beamer"] = beamer
 
+        mark = Character("Mark", "le capitaine légendaire", Club_de_Raimon, ["Allez, on va jouer au foot !", "N'abandonne jamais !"])
+        self.characters.append(mark) # On l'ajoute à la liste globale pour le mouvement
+        Club_de_Raimon.characters["Mark"] = mark # On l'ajoute à la pièce
+
+        # Exemple 2 : Axel Blaze (Attaquant)
+        axel = Character("Axel", "l'attaquant de feu", Vestiaire, ["Je dois protéger ma soeur...", "Passe-moi le ballon !"])
+        self.characters.append(axel)
+        Vestiaire.characters["Axel"] = axel
+
+        # Exemple 3 : Un rival à Kirkwood
+        rival = Character("Rival", "un joueur de Kirkwood arrogant", Le_club_Kirkwood, ["Raimon ne nous battra jamais.", "Pff, amateurs."])
+        self.characters.append(rival)
+        Le_club_Kirkwood.characters["Rival"] = rival
+
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = Club_de_Raimon
 
@@ -150,6 +172,12 @@ class Game:
         else:
             command = self.commands[command_word]
             command.action(self, list_of_words, command.number_of_parameters)
+
+            # MODIFICATION : Après chaque commande du joueur, on fait bouger les PNJ
+            for char in self.characters:
+                moved = char.move()
+                if moved and DEBUG:
+                    print(f"DEBUG: {char.name} s'est déplacé vers {char.current_room.name}")
 
     # Print the welcome message
     def print_welcome(self):
