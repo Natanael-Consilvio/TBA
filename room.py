@@ -1,4 +1,4 @@
-# Define the Room class.
+# Fichier : room.py
 
 class Room:
 
@@ -7,19 +7,17 @@ class Room:
         self.name = name
         self.description = description
         self.exits = {}
-        
         self.inventory = {}
+        # MODIFICATION : Ajout du dictionnaire des personnages
+        self.characters = {}
     
-    # Define the get_exit method.
+    # ... (méthodes get_exit, get_exit_string, get_long_description inchangées) ...
     def get_exit(self, direction):
-
-        # Return the room in the given direction if it exists.
         if direction in self.exits.keys():
             return self.exits[direction]
         else:
             return None
     
-    # Return a string describing the room's exits.
     def get_exit_string(self):
         exit_string = "Sorties: " 
         for exit in self.exits.keys():
@@ -28,15 +26,27 @@ class Room:
         exit_string = exit_string.strip(", ")
         return exit_string
 
-    # Return a long description of this room including exits.
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
 
-    def get_inventory_string(self): #modif pour afficher inventaire
-        if not self.inventory:
+    # MODIFICATION : Affichage combiné des objets ET des personnages
+    def get_inventory_string(self):
+        output = ""
+        
+        # Gestion des objets (Inventory)
+        if self.inventory:
+            output += "\nOn voit :"
+            for item in self.inventory.values():
+                output += f"\n\t- {item}"
+        
+        # MODIFICATION : Gestion des personnages (Characters)
+        if self.characters:
+            if not output: # Si pas d'objets, on met l'en-tête
+                output += "\nOn voit :"
+            for char in self.characters.values():
+                output += f"\n\t- {char}"
+                
+        if not output:
             return "\t- Il n'y a rien ici."
             
-        output = "\nOn voit :"
-        for item in self.inventory.values():
-            output += f"\n\t- {item}"
         return output
