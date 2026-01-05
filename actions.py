@@ -269,3 +269,24 @@ class Actions:
        
         # Action d'utiliser
         return beamer.use(player)
+    
+    def talk(game, list_of_words, number_of_parameters):
+        """Parle à un PNJ présent dans la pièce."""
+        player = game.player
+        l = len(list_of_words)
+        
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG1.format(command_word=command_word))
+            return False
+
+        character_name = list_of_words[1]
+
+        # Vérifier si le personnage est dans la pièce
+        if character_name not in player.current_room.characters:
+            print(f"\n{character_name} n'est pas ici.\n")
+            return False
+        
+        character = player.current_room.characters[character_name]
+        print(f"\n{character.name} dit : \"{character.get_msg()}\"\n")
+        return True
