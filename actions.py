@@ -290,3 +290,21 @@ class Actions:
         character = player.current_room.characters[character_name]
         print(f"\n{character.name} dit : \"{character.get_msg()}\"\n")
         return True
+
+
+    # vOir les quêtes
+    
+    def show_quests(game, list_of_words, number_of_parameters):
+        """Affiche la liste des quêtes et leur statut."""
+        l = len(list_of_words)
+        if l != number_of_parameters + 1:
+            command_word = list_of_words[0]
+            print(MSG0.format(command_word=command_word))
+            return False
+           
+        print("\n--- Journal de Quêtes ---")
+        for q in game.quests:
+            status = "[TERMINÉE]" if q.is_finished() else "[EN COURS]"
+            print(f"{status} {q.title} : {q.description}")
+        print("-------------------------")
+        return True
