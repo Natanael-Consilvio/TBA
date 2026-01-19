@@ -8,6 +8,7 @@ from command import Command
 from actions import Actions
 from item import Item, Beamer
 from character import Character
+from quest import ItemQuest, MoveQuest, InteractionQuest
 
 DEBUG = True
 
@@ -23,6 +24,7 @@ class Game:
 
         self.directions = ["N", "E", "S", "O", "U", "D"] #rajout des directions dans la classe
         self.characters = []
+        self.quests = []
 
     # Setup the game
     def setup(self): 
@@ -64,6 +66,9 @@ class Game:
    
         talk = Command("talk", " <nom> : parler à un personnage", Actions.talk, 1)
         self.commands["talk"] = talk
+
+        quests_cmd = Command("quests"," : afficher les quêtes en cours", Actions.show_quests, 0)
+        self.commands["quests"] = quests_cmd
 
         # 11 lieux dont ceux de U et D
         
@@ -118,6 +123,9 @@ class Game:
         crampons = Item("crampons", "une paire de crampons usés", 2)
         manuel = Item("manuel", "le manuel technique de l'équipe", 3)
         
+        carnet = Item("carnet", "un carnet d'espionnage", 1)
+        La_zone_de_recrutement.inventory["carnet"] = carnet
+
         # Ajout des objets dans les pièces 
         Club_de_Raimon.inventory["ballon"] = ballon
         Vestiaire.inventory["crampons"] = crampons
@@ -140,6 +148,19 @@ class Game:
         self.characters.append(rival)
         Le_club_Kirkwood.characters["Rival"] = rival
 
+        q1 = InteractionQuest("Le Capitaine", "Parlez à Mark a Club pour obtenir ses encouragements.","Mark")
+        self.quests.append(q1)
+
+        q2 = ItemQuest("Le Savoir", "Trouvez le manuel technique dans la Salle Secrète.", "manuel")
+        self.quests.append(q2)
+       
+        q3 = MoveQuest("Espionnage", "Infiltrez-vous dans le club Kirkwood (attention, il vous faut le carnet !).", "Le club Kirkwood")
+        self.quests.append(q3)
+
+        # On démarre toutes les quêtes au début (ou on pourrait les activer via PNJ)
+        for q in self.quests:
+            q.start()
+
         self.player = Player(input("\nEntrez votre nom: "))
         self.player.current_room = Club_de_Raimon
 
@@ -151,7 +172,37 @@ class Game:
         while not self.finished:
             # Get the command from the player
             self.process_command(input("> "))
+            # Vérifier les quêtes et les conditions de fin à chaque tour
+            self.check_quests()
+            self.check_win_loose()
         return None
+
+    #Vérifier l'état des quêtes
+    def check_quests(self):
+        for q in self.quests:
+            if not q.is_finished():
+                q.check(self)
+
+    #Conditions de Victoire / Défaite
+    def check_win_loose(self):
+        # Défaite : Entrer à Kirkwood SANS le carnet d'espionnage
+        if self.player.current_room.name == "Le club Kirkwood" and "carnet" not in self.player.inventory:
+            print("\n--- DÉFAITE ---")
+            print("Vous êtes entré chez l'ennemi sans vos notes d'espionnage ! Vous êtes repéré et expulsé.")
+            self.finished = True
+            return
+
+        #Victoire : Toutes les quêtes sont terminées
+        all_finished = True
+        for q in self.quests:
+            if not q.is_finished():
+                all_finished = False
+                break
+       
+        if all_finished:
+            print("\n--- VICTOIRE ! ---")
+            print("Félicitations ! Vous avez accompli toutes les missions de l'équipe Raimon !")
+            self.finished = True
 
     # Process the command entered by the player
     def process_command(self, command_string) -> None:
