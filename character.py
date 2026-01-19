@@ -11,6 +11,7 @@ class Character:
         self.description = description
         self.current_room = current_room
         self.msgs = msgs # Liste des messages que le PNJ peut dire
+        self.has_spoken = False #pour savoir si on lui a parlé
 
     def __str__(self):
         return f"{self.name} : {self.description}"
@@ -45,6 +46,9 @@ class Character:
         """
         Affiche le prochain message du personnage de manière cyclique.
         """
+
+        self.has_spoken = True #on note qu'on a parlé
+        
         if not self.msgs:
             return "Ce personnage n'a rien à dire."
         
