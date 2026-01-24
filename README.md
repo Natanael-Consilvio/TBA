@@ -1,16 +1,134 @@
-# TBA
+# ⚽ Inazuma Eleven : PROJET TBA
 
-Ce repo contient la première version (minimale) du jeu d’aventure TBA.
+Raphael Anzalone , Natanael Consilvio
 
-Les lieux sont au nombre de 6. Il n'y a pas encore d’objets ni de personnages autres que le joueur et très peu d’interactions. Cette première version sert de base à ce qui va suivre, et sera améliorée au fur et à mesure.
+Bienvenue dans le dépôt de **Inazuma Eleven**, un jeu d'aventure textuel développé en Python. Ce projet reprend l'univers du manga de football Inazuma Eleven.
 
+## 📖 Guide Utilisateur
 
-## Structuration
+### 1. Installation et Lancement
 
-Il y a pour le moment 5 modules contenant chacun une classe.
+Pour jouer, vous devez avoir **Python** installé sur votre machine.
 
-- `game.py` / `Game` : description de l'environnement, interface avec le joueur ;
-- `room.py` / `Room` : propriétés génériques d'un lieu  ;
-- `player.py` / `Player` : le joueur ;
-- `command.py` / `Command` : les consignes données par le joueur ;
-- `actions.py` / `Action` : les interactions entre .
+1. Téléchargez ou clonez ce dépôt.
+2. Ouvrez un terminal dans le dossier du projet.
+3. Lancez le jeu avec la commande suivante :
+   ```bash
+   python game.py
+   ```
+
+### 2. Description de l'Univers
+
+Vous incarnez un nouveau joueur de l'équipe du collège **Raimon**. Le capitaine, **Mark Evans**, compte sur vous. Le match décisif contre l'académie **Kirkwood** est imminent, mais l'équipe n'est pas prête.
+Votre mission : explorer le campus, rassembler des informations vitales et dénicher des informations qui assureront la victoire.
+
+### 3. Conditions de Victoire et de Défaite
+
+* **🏆 VICTOIRE :** Vous devez accomplir les 3 quêtes principales :
+    1. Parler au capitaine Mark.
+    2. Récupérer le parchemin de la **Technique** ("Tornade de Feu") dans la Salle Secrète.
+    3. Vous rendre chez l'ennemi (Kirkwood) et utiliser la technique (`use technique`) pour marquer le but de la victoire.
+       
+* **☠️ DÉFAITE :** Si vous entrez au **Club Kirkwood** sans avoir récupéré le **carnet** d'espionnage (situé dans la zone de recrutement), vous serez immédiatement repéré et expulsé du collège (Game Over).
+
+### 4. Guide des Commandes
+
+Le jeu se joue entièrement au clavier via des commandes textuelles.
+
+| Catégorie | Commande | Description |
+| :--- | :--- | :--- |
+| **Mouvements** | `go <direction>` | Se déplacer (N, S, E, O, U, D). *Ex: `go N`* |
+| | `back` | Revenir à la pièce précédente. |
+| | `history` | Afficher la liste des lieux visités. |
+| **Téléportation** | `charge` | Mémoriser la pièce actuelle dans le **Beamer**. |
+| | `use beamer` | Se téléporter instantanément au point mémorisé. |
+| **Exploration** | `look` | Observer la pièce, voir les objets et les PNJ. |
+| | `talk <nom>` | Parler à un personnage. *Ex: `talk Mark`* |
+| **Inventaire** | `take <objet>` | Ramasser un objet. *Ex: `take ballon`* |
+| | `drop <objet>` | Poser un objet au sol. |
+| | `check` | Afficher le contenu de votre sac. |
+| | `use <objet>` | Utiliser un objet spécial (Condition de victoire). |
+| **Système** | `quests` | Afficher le journal des quêtes (En cours / Terminées). |
+| | `help` | Afficher l'aide. |
+| | `quit` | Quitter le jeu. |
+
+---
+
+## 🛠️ Guide Développeur
+
+Le projet est structuré selon les principes de la **Programmation Orientée Objet (POO)**.
+
+### Structure des fichiers
+* `game.py` : Moteur principal (Boucle de jeu, Initialisation, Conditions de fin).
+* `actions.py` : Logique des commandes (Traitement des entrées joueur).
+* `player.py` : Gestion du joueur (Position, Inventaire, Historique).
+* `room.py` : Gestion des lieux (Sorties, Contenu).
+* `item.py` : Gestion des objets et du Beamer.
+* `character.py` : Gestion des PNJ et déplacements aléatoires.
+* `quest.py` : Système de quêtes.
+* `command.py` : Structure de données des commandes.
+
+### Diagramme de Classes (Mermaid)
+Voici la représentation graphique de l'architecture du code :
+
+```mermaid
+classDiagram
+    class Game {
+        +bool finished
+        +list rooms
+        +setup()
+        +play()
+        +check_win_loose()
+    }
+    class Player {
+        +str name
+        +Room current_room
+        +dict inventory
+        +move(direction)
+        +take(item)
+        +go_back()
+    }
+    class Room {
+        +str name
+        +str description
+        +dict exits
+        +dict inventory
+        +dict characters
+    }
+    class Character {
+        +str name
+        +move()
+        +get_msg()
+    }
+    class Item {
+        +str name
+        +float weight
+    }
+    class Beamer {
+        +Room target_room
+        +charge(room)
+        +use(player)
+    }
+    class Quest {
+        +str title
+        +bool completed
+        +check(game)
+    }
+    class Actions {
+        +go()
+        +look()
+        +take()
+        +use()
+        +talk()
+    }
+
+    Game "1" -- "1" Player : gère
+    Game "1" *-- "*" Room : contient
+    Game "1" *-- "*" Quest : contient
+    Room "1" o-- "*" Item : contient
+    Room "1" o-- "*" Character : contient
+    Item <|-- Beamer : hérite
+    Quest <|-- ItemQuest : hérite
+    Quest <|-- MoveQuest : hérite
+    Quest <|-- InteractionQuest : hérite
+```
