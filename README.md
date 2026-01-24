@@ -68,6 +68,7 @@ Le projet est structuré selon les principes de la **Programmation Orientée Obj
 * `quest.py` : Système de quêtes.
 * `command.py` : Structure de données des commandes.
 
+
 ### Diagramme de Classes (Mermaid)
 Voici la représentation graphique de l'architecture du code :
 
@@ -132,3 +133,14 @@ classDiagram
     Quest <|-- MoveQuest : hérite
     Quest <|-- InteractionQuest : hérite
 ```
+
+## Perspectives de Développement
+
+Voici les pistes d'amélioration envisagées pour les futures versions :
+
+1.  **Système de Duel :** Remplacer la victoire instantanée par un affrontement au tour par tour (choix de techniques, choix des actions (tirer, passer, dribler)).
+2.  **Statistiques Joueur :** Intégrer des attributs (Frappe, Vitesse, Contrôle) qui évoluent en utilisant les objets du magasin.
+3.  **Interface Graphique :** Réaliser une interface graphique.
+4.  **Hasard :** Faire en sorte que les adversaires, lors des duels, jouent aléatoirement.
+
+---
