@@ -18,8 +18,7 @@ MSG1 = "\nLa commande '{command_word}' prend 1 seul paramètre.\n"
 
 class Actions:
 
-    # MODIFICATION : Définition du dictionnaire de traduction pour les synonymes
-    # Les clés sont les synonymes longs, les valeurs sont les codes courts (N, E, S, O, U, D).
+
     TRADUCTION_DIRECTION = {
         "OUEST": "O",
         "EST": "E",
@@ -34,7 +33,7 @@ class Actions:
         player = game.player
         l = len(list_of_words)
         
-        # 1. Vérification du nombre de paramètres
+        # Vérification du nombre de paramètres
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG1.format(command_word=command_word))
@@ -42,18 +41,11 @@ class Actions:
 
         direction = list_of_words[1]
 
-
-        # MODIFICATION : Utilisation du dictionnaire pour la traduction (synonymes)
-        
-        # 2. Mise en majuscule : "ouest" -> "OUEST"
         direction = direction.upper() 
 
-        # 3. Traduction : Si la clé est trouvée dans le dictionnaire, elle est remplacée par le code court.
-        #    Sinon, on conserve la valeur de 'direction' (le deuxième argument de .get).
         direction = Actions.TRADUCTION_DIRECTION.get(direction, direction)
         
-        
-        # 4. Gestion direction inconnue : Vérifie si la direction traduite est autorisée dans le jeu
+
         if direction not in game.directions:
             print(f"\nDirection '{direction}' inconnue. Utilisez : {game.directions}\n")
             return False
@@ -81,7 +73,6 @@ class Actions:
             return False
 
         print (player.get_history_string())
-        # 5. Déplacement (Player.move se charge de vérifier si la porte existe)
     
         return True
     def history(game, list_of_words, number_of_parameters):
@@ -125,13 +116,11 @@ class Actions:
 
         """
         l = len(list_of_words)
-        # If the number of parameters is incorrect, print an error message and return False.
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
             print(MSG0.format(command_word=command_word))
             return False
         
-        # Set the finished attribute of the game object to True.
         player = game.player
         msg = f"\nMerci {player.name} d'avoir joué. Au revoir.\n"
         print(msg)
@@ -200,7 +189,7 @@ class Actions:
             print(MSG1.format(command_word=command_word))
             return False
 
-        item_name = list_of_words[1] # c'est le deuxieme mot (take objet) c'est objet
+        item_name = list_of_words[1] 
         game.player.take(item_name)
         return True
 
@@ -230,7 +219,6 @@ class Actions:
     def charge(game, list_of_words, number_of_parameters):
         """Charge le beamer avec la pièce actuelle."""
         player = game.player
-        # Vérification paramètres
         l = len(list_of_words)
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]
@@ -253,7 +241,6 @@ class Actions:
     def use(game, list_of_words, number_of_parameters):
         """Utilise le beamer."""
         player = game.player
-        # Vérification paramètres
         l = len(list_of_words)
         if l != number_of_parameters + 1:
             command_word = list_of_words[0]

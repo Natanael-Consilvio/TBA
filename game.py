@@ -72,13 +72,13 @@ class Game:
 
         # 11 lieux dont ceux de U et D
         
-        Club_de_Raimon = Room("Club de Raimon", "à l'iconique club de foot du collège Raimon.")
+        Club_de_Raimon = Room("Club de Raimon", "au club de foot du collège Raimon.")
         self.rooms.append(Club_de_Raimon)
         Terrain = Room("Terrain", "au terrain de foot.")
         self.rooms.append(Terrain)
-        Tribunes = Room("Tribunes", "aux tribunes du terrain de foot")
+        Tribunes = Room("Tribunes", "aux tribunes du terrain de foot.")
         self.rooms.append(Tribunes)
-        Vestiaire = Room("Vestiaire", "au vestiaire du club. Vous pouvez discuter avec les joueurs du club présent.")
+        Vestiaire = Room("Vestiaire", "au vestiaire du club.")
         self.rooms.append(Vestiaire)
         Salle_secrete = Room("Salle secrète", "dans un lieu où réside un mystérieux bouquin.")
         self.rooms.append(Salle_secrete)
@@ -134,21 +134,21 @@ class Game:
         beamer = Beamer("beamer", "un dispositif de téléportation étrange", 5) # 5kg
         Tribunes.inventory["beamer"] = beamer
 
-        mark = Character("Mark", "le capitaine légendaire", Club_de_Raimon, ["Allez, on va jouer au foot !", "N'abandonne jamais !"])
+        mark = Character("Mark", "le capitaine", Club_de_Raimon, ["Il nous faut des infos sur Kirkwood !", "Va chercher le carnet, vite !"])
         self.characters.append(mark) # On l'ajoute à la liste globale pour le mouvement
         Club_de_Raimon.characters["Mark"] = mark # On l'ajoute à la pièce
 
         # Exemple 2 : Axel Blaze (Attaquant)
-        axel = Character("Axel", "l'attaquant de feu", Vestiaire, ["Je dois protéger ma soeur...", "Passe-moi le ballon !"])
+        axel = Character("Axel", "l'attaquant de feu", Vestiaire, ["N'oublie pas les objectifs !", "Passe-moi le ballon !"])
         self.characters.append(axel)
         Vestiaire.characters["Axel"] = axel
 
         # Exemple 3 : Un rival à Kirkwood
-        rival = Character("Rival", "un joueur de Kirkwood arrogant", Le_club_Kirkwood, ["Raimon ne nous battra jamais.", "Pff, amateurs."])
+        rival = Character("Rival", "Capitaine de Kirkwood", Le_club_Kirkwood, ["Raimon ne nous battra jamais.", "Pff, amateurs."])
         self.characters.append(rival)
         Le_club_Kirkwood.characters["Rival"] = rival
 
-        q1 = InteractionQuest("Le Capitaine", "Parlez à Mark a Club pour obtenir ses encouragements.","Mark")
+        q1 = InteractionQuest("Le Capitaine", "Parlez à Mark pour recevoir tes ordres.","Mark")
         self.quests.append(q1)
 
         q2 = ItemQuest("Le Savoir", "Trouvez le manuel technique dans la Salle Secrète.", "manuel")

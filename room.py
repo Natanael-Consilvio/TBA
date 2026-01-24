@@ -2,16 +2,13 @@
 
 class Room:
 
-    # Define the constructor. 
     def __init__(self, name, description):
         self.name = name
         self.description = description
         self.exits = {}
         self.inventory = {}
-        # MODIFICATION : Ajout du dictionnaire des personnages
         self.characters = {}
     
-    # ... (méthodes get_exit, get_exit_string, get_long_description inchangées) ...
     def get_exit(self, direction):
         if direction in self.exits.keys():
             return self.exits[direction]
@@ -29,17 +26,14 @@ class Room:
     def get_long_description(self):
         return f"\nVous êtes {self.description}\n\n{self.get_exit_string()}\n"
 
-    # MODIFICATION : Affichage combiné des objets ET des personnages
     def get_inventory_string(self):
         output = ""
         
-        # Gestion des objets (Inventory)
         if self.inventory:
             output += "\nOn voit :"
             for item in self.inventory.values():
                 output += f"\n\t- {item}"
         
-        # MODIFICATION : Gestion des personnages (Characters)
         if self.characters:
             if not output: # Si pas d'objets, on met l'en-tête
                 output += "\nOn voit :"

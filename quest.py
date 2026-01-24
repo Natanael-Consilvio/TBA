@@ -25,6 +25,9 @@ class Quest:
         """Vérifie si les conditions de réussite sont remplies. À surcharger."""
         return self.completed
 
+    def is_finished(self):
+        return self.completed
+
 # Quête : Avoir un objet spécifique dans son inventaire
 class ItemQuest(Quest):
     def __init__(self, title, description, item_name, reward=None):
@@ -65,3 +68,4 @@ class InteractionQuest(Quest):
                 self.complete()
                 break
         return self.completed
+
