@@ -26,8 +26,8 @@ Votre mission : explorer le campus, rassembler des informations vitales et déni
 
 * **🏆 VICTOIRE :** Vous devez accomplir les 3 quêtes principales :
     1. Parler au capitaine Mark.
-    2. Récupérer le parchemin de la **Technique** ("Tornade de Feu") dans la Salle Secrète.
-    3. Vous rendre chez l'ennemi (Kirkwood) et utiliser la technique (`use technique`) pour marquer le but de la victoire.
+    2. Récupérer le manuel.
+    3. Vous rendre chez l'ennemi (Kirkwood) et espionner le club adverse.
        
 * **☠️ DÉFAITE :** Si vous entrez au **Club Kirkwood** sans avoir récupéré le **carnet** d'espionnage (situé dans la zone de recrutement), vous serez immédiatement repéré et expulsé du collège (Game Over).
 
